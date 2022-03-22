@@ -15,7 +15,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject();
 
   viewData: TableViewdata[] = [];
-  showView?: TableViewdata;
+  showView: TableViewdata = new TableViewdata();
   processData: { lbl2: string, lbl3: string, lbl4: string } = { lbl2: '', lbl3: '', lbl4: '' }
 
   modalRef?: BsModalRef;

@@ -122,17 +122,52 @@
 <ng-template #showRecord>
     <div class="card">
         <div class="card-header">
-            Record
+            Details
             <a class="card-header-action float-end" (click)="modalRef?.hide()">
                 <i class="fas fa-times text-dark"></i>
             </a>
         </div>
         <div class="card-body">
-            <p class="card-text">COLUMN_0 : {{showView?.col0}}</p>
+            <!-- <p class="card-text">COLUMN_0 : {{showView?.col0}}</p>
             <p class="card-text">COLUMN_1 : {{showView?.col1}}</p>
             <p class="card-text">COLUMN_2 : {{showView?.col2}}</p>
             <p class="card-text">COLUMN_3 : {{showView?.col3}}</p>
-            <p class="card-text">COLUMN_4 : {{showView?.col4}}</p>
+            <p class="card-text">COLUMN_4 : {{showView?.col4}}</p> -->
+            <div class="row mb-2">
+                <label for="col_0" class="col col-form-label">COLUMN_0</label>
+                <div class="col-9">
+                    <input type="text" class="form-control form-control-sm"
+                        [(ngModel)]="showView.col0" id="col_0">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <label for="col_1" class="col col-form-label">COLUMN_1</label>
+                <div class="col-9">
+                    <input type="text" class="form-control form-control-sm"
+                        [(ngModel)]="showView.col1" id="col_1">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <label for="col_2" class="col col-form-label">COLUMN_2</label>
+                <div class="col-9">
+                    <input type="text" class="form-control form-control-sm"
+                        [(ngModel)]="showView.col2" id="col_2">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <label for="col_3" class="col col-form-label">COLUMN_3</label>
+                <div class="col-9">
+                    <input type="text" class="form-control form-control-sm"
+                        [(ngModel)]="showView.col3" id="col_3">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <label for="col_4" class="col col-form-label">COLUMN_4</label>
+                <div class="col-9">
+                    <input type="text" class="form-control form-control-sm"
+                        [(ngModel)]="showView.col4" id="col_4">
+                </div>
+            </div>
         </div>
     </div>
 </ng-template>
