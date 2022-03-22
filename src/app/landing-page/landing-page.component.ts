@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Subject, takeUntil } from 'rxjs';
 import { ColumnSortedEvent } from '../table-functionality/sortable-column/sort.service';
@@ -15,7 +15,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject();
 
   viewData: TableViewdata[] = [];
-  showView: TableViewdata = new TableViewdata();
+  showView: TableViewdata = null;
+  selectedCount: number = 0;
   processData: { lbl2: string, lbl3: string, lbl4: string } = { lbl2: '', lbl3: '', lbl4: '' }
 
   modalRef?: BsModalRef;
@@ -29,7 +30,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       this.setHeightToContainer();
     }, 0);
   }
-
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -68,23 +68,13 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  singleClick(view: TableViewdata) {
+  selectRow(view: TableViewdata) {
+    view.isSelected ? this.selectedCount-- : this.selectedCount++;
     view.toggleRowSelection();
   }
-
-  private generateFile(array: TableViewdata[]) {
-    let sr = array.filter(d => d.isSelected);
-    return sr;
-  }
-
-  doubleClick(view: TableViewdata) {
-    let sr = this.generateFile(this.viewData);
-    if (sr.length > 1) {
-      this.lpSvc.writeFile(this.viewData);
-    } else {
-      this.showView = view;
-      this.openModal(this.showRecord);
-    }
+  
+  downloadFile() {
+    this.lpSvc.writeFile(this.viewData);
   }
 
   openModal(template: TemplateRef<any>) {
@@ -97,6 +87,14 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   processBtn(template: TemplateRef<any>) {
     this.openModal(template);
+  }
+
+  showDetail(view: TableViewdata) {
+    this.showView = view;
+  }
+
+  resetDetail() {
+    this.showView = null;
   }
 
   // showRecord(template: TemplateRef<any>) {

@@ -81,23 +81,18 @@ export class TableViewdata {
   }
 
   resetColor() {
-    if (this.isSelected) {
-      this.rowTextColor = 'text-white';
-      this.rowBgColor = 'bg-primary';
+    if (this.col0.endsWith('0')) {
+      this.rowTextColor = 'text-danger';
+      this.rowBgColor = 'bg-white';
+    } else if (this.col0.endsWith('1')) {
+      this.rowTextColor = 'text-success';
+      this.rowBgColor = 'bg-danger';
+    } else if (this.col0.endsWith('2')) {
+      this.rowTextColor = 'text-primary';
+      this.rowBgColor = 'bg-white';
     } else {
-      if (this.col0.endsWith('0')) {
-        this.rowTextColor = 'text-danger';
-        this.rowBgColor = 'bg-white';
-      } else if (this.col0.endsWith('1')) {
-        this.rowTextColor = 'text-success';
-        this.rowBgColor = 'bg-danger';
-      } else if (this.col0.endsWith('2')) {
-        this.rowTextColor = 'text-primary';
-        this.rowBgColor = 'bg-white';
-      } else {
-        this.rowTextColor = 'text-dark';
-        this.rowBgColor = 'bg-white';
-      }
+      this.rowTextColor = 'text-dark';
+      this.rowBgColor = 'bg-white';
     }
   }
 }

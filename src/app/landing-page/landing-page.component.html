@@ -6,20 +6,22 @@
                     <div class="card-header">Text T111</div>
                     <div class="row">
                         <div class="col-3 pr-0">
-                            <div class="card h-100 border-0">
+                            <div class="card h-100 border-0 pb-3">
                                 <div class="card-body position-relative">
                                     <button (click)="button121(button_121)"
                                         class="btn btn-info btn-sm rounded-pill text-danger border border-2 border-danger position-absolute top-50 start-50 translate-middle">Button_121</button>
+                                    <button *ngIf="selectedCount" (click)="downloadFile()"
+                                        class="btn btn-primary btn-sm rounded-pill position-absolute bottom-0 start-50 translate-middle-x">Download
+                                        {{selectedCount}} Selected</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-9 pl-0">
+                        <div class="col-5 px-0">
                             <div class="card h-100 border-0">
                                 <div class="card-body py-2">
                                     <div class="card border-top-secondary border-top-3 mb-3">
                                         <div class="card-header">GB Text 1</div>
                                         <div class="card-body text-secondary py-2">
-                                            <!-- <form > -->
                                             <div class="row mb-2">
                                                 <label for="label2" class="col-sm-2 col-form-label">Label 2</label>
                                                 <div class="col-sm-10">
@@ -44,10 +46,31 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <button (click)="processBtn(process)"
-                                                        class="btn bn-white btn-sm rounded-pill text-success border border-2 border-success float-end">Process</button>
+                                                        class="btn btn-white btn-sm rounded-pill text-success border border-2 border-success float-end">Process</button>
                                                 </div>
                                             </div>
-                                            <!-- </form> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 pl-0">
+                            <div class="card h-100 border-0" [ngClass]="{'invisible':!showView}">
+                                <div class="card-body py-2">
+                                    <div class="card border-top-secondary border-top-3 mb-3">
+                                        <div class="card-header">Details</div>
+                                        <div class="card-body text-secondary py-2">
+                                            <p class="card-text">COLUMN_0 : {{showView?.col0}}</p>
+                                            <p class="card-text">COLUMN_1 : {{showView?.col1}}</p>
+                                            <p class="card-text">COLUMN_2 : {{showView?.col2}}</p>
+                                            <p class="card-text">COLUMN_3 : {{showView?.col3}}</p>
+                                            <p class="card-text">COLUMN_4 : {{showView?.col4}}</p>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button (click)="resetDetail()"
+                                                        class="btn btn-white btn-sm rounded-pill text-success border border-2 border-success float-end">Reset</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -64,6 +87,7 @@
                         <table class="table" sortableTable (sorted)="onSorted($event)">
                             <thead>
                                 <tr>
+                                    <th scope="col"></th>
                                     <th scope="col" sortable-column="col0">COLUMN_0</th>
                                     <th scope="col" sortable-column="col1">COLUMN_1</th>
                                     <th scope="col" sortable-column="col2">COLUMN_2</th>
@@ -72,8 +96,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let view of viewData" [ngClass]="[ view.rowBgColor]" doubleTap
-                                    (singleClick)="singleClick(view)" (doubleClick)="doubleClick(view)">
+                                <tr *ngFor="let view of viewData" [ngClass]="[view.rowBgColor]"
+                                    (click)="showDetail(view)">
+                                    <td class="bg-white" (click)="$event.stopPropagation();selectRow(view)" style="width: 15px;">
+                                        <i class="far" [ngClass]="view.isSelected? 'fa-check-square':'fa-square'"></i>
+                                    </td>
                                     <td [ngClass]="[view.rowTextColor]">{{view.col0}}</td>
                                     <td [ngClass]="[view.rowTextColor]">{{view.col1}}</td>
                                     <td [ngClass]="[view.rowTextColor]">{{view.col2}}</td>
@@ -136,36 +163,31 @@
             <div class="row mb-2">
                 <label for="col_0" class="col col-form-label">COLUMN_0</label>
                 <div class="col-9">
-                    <input type="text" class="form-control form-control-sm"
-                        [(ngModel)]="showView.col0" id="col_0">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="showView.col0" id="col_0">
                 </div>
             </div>
             <div class="row mb-2">
                 <label for="col_1" class="col col-form-label">COLUMN_1</label>
                 <div class="col-9">
-                    <input type="text" class="form-control form-control-sm"
-                        [(ngModel)]="showView.col1" id="col_1">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="showView.col1" id="col_1">
                 </div>
             </div>
             <div class="row mb-2">
                 <label for="col_2" class="col col-form-label">COLUMN_2</label>
                 <div class="col-9">
-                    <input type="text" class="form-control form-control-sm"
-                        [(ngModel)]="showView.col2" id="col_2">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="showView.col2" id="col_2">
                 </div>
             </div>
             <div class="row mb-2">
                 <label for="col_3" class="col col-form-label">COLUMN_3</label>
                 <div class="col-9">
-                    <input type="text" class="form-control form-control-sm"
-                        [(ngModel)]="showView.col3" id="col_3">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="showView.col3" id="col_3">
                 </div>
             </div>
             <div class="row mb-2">
                 <label for="col_4" class="col col-form-label">COLUMN_4</label>
                 <div class="col-9">
-                    <input type="text" class="form-control form-control-sm"
-                        [(ngModel)]="showView.col4" id="col_4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="showView.col4" id="col_4">
                 </div>
             </div>
         </div>
