@@ -1,10 +1,12 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { FileSaverService } from 'ngx-filesaver';
 
 @Injectable()
 export class LandingPageService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private fileSaverService: FileSaverService) { }
 
   loadFile() {
     let options: Object = {
@@ -13,6 +15,7 @@ export class LandingPageService {
       }),
       responseType: 'text'
     }
+    // D:/personal/FL/argent/src/assets/input/SAMPLE_INPUT.txt
     return this.http.get<string>('assets/input/SAMPLE_INPUT.txt', options);
   }
 
@@ -33,9 +36,20 @@ export class LandingPageService {
     return array;
   }
 
-  
-
   writeFile(array: TableViewdata[]) {
+    let outPut: string = '';
+    array.forEach((row, index) => {
+      if (row.isSelected) {
+        let line: string = '';
+        if (index > 0) {
+          outPut = outPut.concat('\n');
+        }
+        outPut = outPut.concat(row.col0, ',', row.col1, ',', row.col2, ',', row.col3, ',', row.col4);
+      }
+    });
+    const fileType = this.fileSaverService.genType('SAMPLE_OUTPUT.txt');
+    const txtBlob = new Blob([outPut], { type: fileType });
+    this.fileSaverService.save(txtBlob, 'SAMPLE_OUTPUT.txt');
   }
 }
 

@@ -10,6 +10,7 @@ import { DoubleTapDirective } from './landing-page/double-tap.directive';
 import { SortableTableDirective } from './table-functionality/sortable-column/sortable-table.directive';
 import { SortableColumnComponent } from './table-functionality/sortable-column/sortable-column.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { FileSaverModule } from 'ngx-filesaver';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AppRoutingModule,
     BrowserAnimationsModule,
     AppCoreModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    FileSaverModule
   ],
   providers: [],
   bootstrap: [AppComponent]
