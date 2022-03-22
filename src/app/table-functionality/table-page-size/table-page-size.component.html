@@ -1,0 +1,9 @@
+<div class="pull-right">
+  <label for="table-page-size" class="mr-2">Show</label>
+  <select id="table-page-size" name="table-page-size" class="d-inline-block form-control form-control-sm" [ngModel]="currentPageSize"
+    (ngModelChange)="onChange($event)">
+    <option [value]="'10'">10</option>
+    <option [value]="'25'">25</option>
+    <!-- <option [value]="'all'">All</option> -->
+  </select>
+</div>
