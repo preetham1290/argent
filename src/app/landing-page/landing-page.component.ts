@@ -79,7 +79,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   doubleClick(view: TableViewdata) {
     let sr = this.generateFile(this.viewData);
-    if (sr.length) {
+    if (sr.length > 1) {
       this.lpSvc.writeFile(this.viewData);
     } else {
       this.showView = view;
