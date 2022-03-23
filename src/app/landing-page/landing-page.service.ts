@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FileSaverService } from 'ngx-filesaver';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class LandingPageService {
@@ -16,7 +17,7 @@ export class LandingPageService {
       responseType: 'text'
     }
     // D:/personal/FL/argent/src/assets/input/SAMPLE_INPUT.txt
-    return this.http.get<string>('assets/input/SAMPLE_INPUT.txt', options);
+    return this.http.get<string>(environment.filePath, options);
   }
 
   convertToViewdata(data: string) {
